@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище parik_PM_AkModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_Client" />
+          </Key>
+          <Property Name="id_Client" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nchar" MaxLength="50" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" />
+          <Property Name="telepnone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Doljnost">
+          <Key>
+            <PropertyRef Name="id_doljnosti" />
+          </Key>
+          <Property Name="id_doljnosti" Type="int" Nullable="false" />
+          <Property Name="Name_dolj" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Price_list">
+          <Key>
+            <PropertyRef Name="id_price_list" />
+          </Key>
+          <Property Name="id_price_list" Type="int" Nullable="false" />
+          <Property Name="Name_price_list" Type="nvarchar" MaxLength="50" />
+          <Property Name="cost" Type="numeric" Precision="8" Scale="0" />
+        </EntityType>
+        <EntityType Name="Rabotnik">
+          <Key>
+            <PropertyRef Name="id_rabotnica" />
+          </Key>
+          <Property Name="id_rabotnica" Type="int" Nullable="false" />
+          <Property Name="Name_rab" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_doljnosti" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="10" />
+          <Property Name="Password" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Yslygi1">
+          <Key>
+            <PropertyRef Name="id_yslygi1" />
+          </Key>
+          <Property Name="id_yslygi1" Type="int" Nullable="false" />
+          <Property Name="Name_ysl" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="zal">
+          <Key>
+            <PropertyRef Name="id_zala" />
+          </Key>
+          <Property Name="id_zala" Type="int" Nullable="false" />
+          <Property Name="Name_zal" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Zapis'">
+          <Key>
+            <PropertyRef Name="id_zapisi" />
+          </Key>
+          <Property Name="id_zapisi" Type="int" Nullable="false" />
+          <Property Name="id_Client" Type="int" Nullable="false" />
+          <Property Name="id_price_list" Type="int" Nullable="false" />
+          <Property Name="id_Yslygi1" Type="int" Nullable="false" />
+          <Property Name="id_zala" Type="int" Nullable="false" />
+          <Property Name="id_rabotnica" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Rabotnik_Doljnost'">
+          <End Role="Doljnost" Type="Self.Doljnost" Multiplicity="1" />
+          <End Role="Rabotnik" Type="Self.Rabotnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doljnost">
+              <PropertyRef Name="id_doljnosti" />
+            </Principal>
+            <Dependent Role="Rabotnik">
+              <PropertyRef Name="id_doljnosti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis'_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Zapis'" Type="Self.Zapis'" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_Client" />
+            </Principal>
+            <Dependent Role="Zapis'">
+              <PropertyRef Name="id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis'_Price_list">
+          <End Role="Price_list" Type="Self.Price_list" Multiplicity="1" />
+          <End Role="Zapis'" Type="Self.Zapis'" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price_list">
+              <PropertyRef Name="id_price_list" />
+            </Principal>
+            <Dependent Role="Zapis'">
+              <PropertyRef Name="id_price_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis'_Rabotnik">
+          <End Role="Rabotnik" Type="Self.Rabotnik" Multiplicity="1" />
+          <End Role="Zapis'" Type="Self.Zapis'" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rabotnik">
+              <PropertyRef Name="id_rabotnica" />
+            </Principal>
+            <Dependent Role="Zapis'">
+              <PropertyRef Name="id_rabotnica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis'_Yslygi1">
+          <End Role="Yslygi1" Type="Self.Yslygi1" Multiplicity="1" />
+          <End Role="Zapis'" Type="Self.Zapis'" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yslygi1">
+              <PropertyRef Name="id_yslygi1" />
+            </Principal>
+            <Dependent Role="Zapis'">
+              <PropertyRef Name="id_Yslygi1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis'_zal">
+          <End Role="zal" Type="Self.zal" Multiplicity="1" />
+          <End Role="Zapis'" Type="Self.Zapis'" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zal">
+              <PropertyRef Name="id_zala" />
+            </Principal>
+            <Dependent Role="Zapis'">
+              <PropertyRef Name="id_zala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище parik_PM_AkModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doljnost" EntityType="Self.Doljnost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price_list" EntityType="Self.Price_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rabotnik" EntityType="Self.Rabotnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yslygi1" EntityType="Self.Yslygi1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zal" EntityType="Self.zal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zapis'" EntityType="Self.Zapis'" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Rabotnik_Doljnost'" Association="Self.FK_Rabotnik_Doljnost'">
+            <End Role="Doljnost" EntitySet="Doljnost" />
+            <End Role="Rabotnik" EntitySet="Rabotnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis'_Client" Association="Self.FK_Zapis'_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Zapis'" EntitySet="Zapis'" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis'_Price_list" Association="Self.FK_Zapis'_Price_list">
+            <End Role="Price_list" EntitySet="Price_list" />
+            <End Role="Zapis'" EntitySet="Zapis'" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis'_Rabotnik" Association="Self.FK_Zapis'_Rabotnik">
+            <End Role="Rabotnik" EntitySet="Rabotnik" />
+            <End Role="Zapis'" EntitySet="Zapis'" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis'_Yslygi1" Association="Self.FK_Zapis'_Yslygi1">
+            <End Role="Yslygi1" EntitySet="Yslygi1" />
+            <End Role="Zapis'" EntitySet="Zapis'" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis'_zal" Association="Self.FK_Zapis'_zal">
+            <End Role="zal" EntitySet="zal" />
+            <End Role="Zapis'" EntitySet="Zapis'" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="parik_PM_AkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_Client" />
+          </Key>
+          <Property Name="id_Client" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="telepnone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zapis_" Relationship="Self.FK_Zapis__Client" FromRole="Client" ToRole="Zapis_" />
+        </EntityType>
+        <EntityType Name="Price_list">
+          <Key>
+            <PropertyRef Name="id_price_list" />
+          </Key>
+          <Property Name="id_price_list" Type="Int32" Nullable="false" />
+          <Property Name="Name_price_list" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Decimal" Precision="8" Scale="0" />
+          <NavigationProperty Name="Zapis_" Relationship="Self.FK_Zapis__Price_list" FromRole="Price_list" ToRole="Zapis_" />
+        </EntityType>
+        <EntityType Name="Rabotnik">
+          <Key>
+            <PropertyRef Name="id_rabotnica" />
+          </Key>
+          <Property Name="id_rabotnica" Type="Int32" Nullable="false" />
+          <Property Name="Name_rab" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_doljnosti" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zapis_" Relationship="Self.FK_Zapis__Rabotnik" FromRole="Rabotnik" ToRole="Zapis_" />
+          <NavigationProperty Name="Doljnost" Relationship="parik_PM_AkModel.FK_Rabotnik_Doljnost_1" FromRole="Rabotnik" ToRole="Doljnost" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Yslygi1">
+          <Key>
+            <PropertyRef Name="id_yslygi1" />
+          </Key>
+          <Property Name="id_yslygi1" Type="Int32" Nullable="false" />
+          <Property Name="Name_ysl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zapis_" Relationship="Self.FK_Zapis__Yslygi1" FromRole="Yslygi1" ToRole="Zapis_" />
+        </EntityType>
+        <EntityType Name="zal">
+          <Key>
+            <PropertyRef Name="id_zala" />
+          </Key>
+          <Property Name="id_zala" Type="Int32" Nullable="false" />
+          <Property Name="Name_zal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zapis_" Relationship="Self.FK_Zapis__zal" FromRole="zal" ToRole="Zapis_" />
+        </EntityType>
+        <EntityType Name="Zapis_">
+          <Key>
+            <PropertyRef Name="id_zapisi" />
+          </Key>
+          <Property Name="id_zapisi" Type="Int32" Nullable="false" />
+          <Property Name="id_Client" Type="Int32" Nullable="false" />
+          <Property Name="id_price_list" Type="Int32" Nullable="false" />
+          <Property Name="id_Yslygi1" Type="Int32" Nullable="false" />
+          <Property Name="id_zala" Type="Int32" Nullable="false" />
+          <Property Name="id_rabotnica" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Zapis__Client" FromRole="Zapis_" ToRole="Client" />
+          <NavigationProperty Name="Price_list" Relationship="Self.FK_Zapis__Price_list" FromRole="Zapis_" ToRole="Price_list" />
+          <NavigationProperty Name="Rabotnik" Relationship="Self.FK_Zapis__Rabotnik" FromRole="Zapis_" ToRole="Rabotnik" />
+          <NavigationProperty Name="Yslygi1" Relationship="Self.FK_Zapis__Yslygi1" FromRole="Zapis_" ToRole="Yslygi1" />
+          <NavigationProperty Name="zal" Relationship="Self.FK_Zapis__zal" FromRole="Zapis_" ToRole="zal" />
+        </EntityType>
+        <Association Name="FK_Zapis__Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Zapis_" Type="Self.Zapis_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_Client" />
+            </Principal>
+            <Dependent Role="Zapis_">
+              <PropertyRef Name="id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis__Price_list">
+          <End Role="Price_list" Type="Self.Price_list" Multiplicity="1" />
+          <End Role="Zapis_" Type="Self.Zapis_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price_list">
+              <PropertyRef Name="id_price_list" />
+            </Principal>
+            <Dependent Role="Zapis_">
+              <PropertyRef Name="id_price_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis__Rabotnik">
+          <End Role="Rabotnik" Type="Self.Rabotnik" Multiplicity="1" />
+          <End Role="Zapis_" Type="Self.Zapis_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rabotnik">
+              <PropertyRef Name="id_rabotnica" />
+            </Principal>
+            <Dependent Role="Zapis_">
+              <PropertyRef Name="id_rabotnica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis__Yslygi1">
+          <End Role="Yslygi1" Type="Self.Yslygi1" Multiplicity="1" />
+          <End Role="Zapis_" Type="Self.Zapis_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yslygi1">
+              <PropertyRef Name="id_yslygi1" />
+            </Principal>
+            <Dependent Role="Zapis_">
+              <PropertyRef Name="id_Yslygi1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zapis__zal">
+          <End Role="zal" Type="Self.zal" Multiplicity="1" />
+          <End Role="Zapis_" Type="Self.Zapis_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zal">
+              <PropertyRef Name="id_zala" />
+            </Principal>
+            <Dependent Role="Zapis_">
+              <PropertyRef Name="id_zala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="parik_PM_AkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Price_list" EntityType="Self.Price_list" />
+          <EntitySet Name="Rabotnik" EntityType="Self.Rabotnik" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Yslygi1" EntityType="Self.Yslygi1" />
+          <EntitySet Name="zal" EntityType="Self.zal" />
+          <EntitySet Name="Zapis_" EntityType="Self.Zapis_" />
+          <AssociationSet Name="FK_Zapis__Client" Association="Self.FK_Zapis__Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Zapis_" EntitySet="Zapis_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis__Price_list" Association="Self.FK_Zapis__Price_list">
+            <End Role="Price_list" EntitySet="Price_list" />
+            <End Role="Zapis_" EntitySet="Zapis_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis__Rabotnik" Association="Self.FK_Zapis__Rabotnik">
+            <End Role="Rabotnik" EntitySet="Rabotnik" />
+            <End Role="Zapis_" EntitySet="Zapis_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis__Yslygi1" Association="Self.FK_Zapis__Yslygi1">
+            <End Role="Yslygi1" EntitySet="Yslygi1" />
+            <End Role="Zapis_" EntitySet="Zapis_" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zapis__zal" Association="Self.FK_Zapis__zal">
+            <End Role="zal" EntitySet="zal" />
+            <End Role="Zapis_" EntitySet="Zapis_" />
+          </AssociationSet>
+          <EntitySet Name="Doljnost" EntityType="parik_PM_AkModel.Doljnost" />
+          <AssociationSet Name="FK_Rabotnik_Doljnost_1" Association="parik_PM_AkModel.FK_Rabotnik_Doljnost_1">
+            <End Role="Doljnost" EntitySet="Doljnost" />
+            <End Role="Rabotnik" EntitySet="Rabotnik" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Doljnost">
+          <Key>
+            <PropertyRef Name="id_doljnosti" />
+          </Key>
+          <Property Name="id_doljnosti" Type="Int32" Nullable="false" />
+          <Property Name="Name_dolj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rabotnik" Relationship="parik_PM_AkModel.FK_Rabotnik_Doljnost_1" FromRole="Doljnost" ToRole="Rabotnik" />
+        </EntityType>
+        <Association Name="FK_Rabotnik_Doljnost_1">
+          <End Type="parik_PM_AkModel.Doljnost" Role="Doljnost" Multiplicity="1" />
+          <End Type="parik_PM_AkModel.Rabotnik" Role="Rabotnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doljnost">
+              <PropertyRef Name="id_doljnosti" />
+            </Principal>
+            <Dependent Role="Rabotnik">
+              <PropertyRef Name="id_doljnosti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище parik_PM_AkModelContainer" CdmEntityContainer="parik_PM_AkEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_Client" ColumnName="id_Client" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="telepnone" ColumnName="telepnone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Price_list">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.Price_list">
+              <MappingFragment StoreEntitySet="Price_list">
+                <ScalarProperty Name="id_price_list" ColumnName="id_price_list" />
+                <ScalarProperty Name="Name_price_list" ColumnName="Name_price_list" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rabotnik">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.Rabotnik">
+              <MappingFragment StoreEntitySet="Rabotnik">
+                <ScalarProperty Name="id_rabotnica" ColumnName="id_rabotnica" />
+                <ScalarProperty Name="Name_rab" ColumnName="Name_rab" />
+                <ScalarProperty Name="id_doljnosti" ColumnName="id_doljnosti" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yslygi1">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.Yslygi1">
+              <MappingFragment StoreEntitySet="Yslygi1">
+                <ScalarProperty Name="id_yslygi1" ColumnName="id_yslygi1" />
+                <ScalarProperty Name="Name_ysl" ColumnName="Name_ysl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zal">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.zal">
+              <MappingFragment StoreEntitySet="zal">
+                <ScalarProperty Name="id_zala" ColumnName="id_zala" />
+                <ScalarProperty Name="Name_zal" ColumnName="Name_zal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zapis_">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.Zapis_">
+              <MappingFragment StoreEntitySet="Zapis'">
+                <ScalarProperty Name="id_zapisi" ColumnName="id_zapisi" />
+                <ScalarProperty Name="id_Client" ColumnName="id_Client" />
+                <ScalarProperty Name="id_price_list" ColumnName="id_price_list" />
+                <ScalarProperty Name="id_Yslygi1" ColumnName="id_Yslygi1" />
+                <ScalarProperty Name="id_zala" ColumnName="id_zala" />
+                <ScalarProperty Name="id_rabotnica" ColumnName="id_rabotnica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doljnost">
+            <EntityTypeMapping TypeName="parik_PM_AkModel.Doljnost">
+              <MappingFragment StoreEntitySet="Doljnost">
+                <ScalarProperty Name="Name_dolj" ColumnName="Name_dolj" />
+                <ScalarProperty Name="id_doljnosti" ColumnName="id_doljnosti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

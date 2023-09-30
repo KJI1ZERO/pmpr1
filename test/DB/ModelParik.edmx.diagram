@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a849daa5a84e40f3a973675aa36aa4e1" Name="Diagram1">
+        <EntityTypeShape EntityType="parik_PM_AkModel.Client" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.Price_list" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.Rabotnik" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.Yslygi1" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.zal" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.Zapis_" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="parik_PM_AkModel.FK_Zapis__Client" ManuallyRouted="false" />
+        <AssociationConnector Association="parik_PM_AkModel.FK_Zapis__Price_list" ManuallyRouted="false" />
+        <AssociationConnector Association="parik_PM_AkModel.FK_Zapis__Rabotnik" ManuallyRouted="false" />
+        <AssociationConnector Association="parik_PM_AkModel.FK_Zapis__Yslygi1" ManuallyRouted="false" />
+        <AssociationConnector Association="parik_PM_AkModel.FK_Zapis__zal" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="parik_PM_AkModel.Doljnost" Width="1.5" PointX="0.75" PointY="3.125" />
+        <AssociationConnector Association="parik_PM_AkModel.FK_Rabotnik_Doljnost_1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
